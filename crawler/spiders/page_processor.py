@@ -2,7 +2,7 @@ import scrapy
 from bs4 import BeautifulSoup
 import crawler.spiders.helper_functions as hf
 import hashlib
-
+from crawler.spiders.document import Document
 class ProjectSpider(scrapy.Spider):
     name = "crawly"
 
@@ -52,6 +52,14 @@ class ProjectSpider(scrapy.Spider):
             print("tf = ", tf)
             print("\n\n")
             print("incidence = ", incidence)
+
+            test_doc = Document()
+            test_doc['url'] = response.url
+            test_doc['doc_id'] = url_hash
+            test_doc['tf'] = tf
+            test_doc['incidence'] = incidence
+
+            print("test_doc works!:\n", test_doc)
         else:
             self.duplicate_urls.append(response.url)
             print('duplicate:', self.duplicate_urls)
