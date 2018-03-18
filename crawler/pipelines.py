@@ -9,3 +9,7 @@
 class CrawlerPipeline(object):
     def process_item(self, item, spider):
         return item
+
+    def close_spider(self, spider):
+        print("duplicate links:", spider.duplicate_urls)
+        print("spider closing now..\n")
