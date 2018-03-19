@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from nltk.tokenize import word_tokenize
 import nltk.stem.porter as porter
 from collections import Counter
+import re
 
 base_url = 'https://s2.smu.edu/~fmoore/'
 supported_types = ['txt', 'html', 'htm', 'php']
@@ -18,23 +19,32 @@ def get_links(soup):
             anchored_urls.append(link)
     return anchored_urls
 
+
 def get_img_links(base, soup):
     return [base+img['src'] for img in soup.find_all('img')]
 
+
 def tf_and_incidence(text):
     tokens = word_tokenize(text)
-    filtered_tokens = [token for token in tokens if len(token)>1 or token.isalpha()]
-    porter_stemmer = porter.PorterStemmer(mode = 'ORIGINAL_ALGORITHM')
-    stemmed_tokens = list(map(porter_stemmer.stem, filtered_tokens))
-    unique_stemmed_tokens = set(stemmed_tokens)
-    return (Counter(stemmed_tokens), Counter(unique_stemmed_tokens))
+
+    # applying nltk's porter stemmer
+    porter_stemmer = porter.PorterStemmer(mode='ORIGINAL_ALGORITHM')
+    stemmed_tokens = list(map(porter_stemmer.stem, tokens))
+
+    # filering words that start with alphabets and with alphanumerics
+    regex_filter = filter(lambda x: re.match('^[a-z]|[a-z0-9]$', x), stemmed_tokens)
+    filtered_stemmed_tokens = list(regex_filter)
+
+    unique_stemmed_tokens = set(filtered_stemmed_tokens)
+
+    return Counter(filtered_stemmed_tokens), Counter(unique_stemmed_tokens)
 
 
-def isInDomain(url):
+def is_in_domain(url):
     return base_url in url
 
 
-def urlTypeSupported(url):
+def url_type_supported(url):
     return urltype(url) in supported_types
 
 
