@@ -27,5 +27,17 @@ where crawly is the name of this crawler
 ![picture](page_as_doc2.png)
 ![picture](url_stats.png)
 
+* Data Structures:
+- The different link stats (broken urls, links of duplicates, graphic file links, indexed links)
+ are all stored in lists
+- The words along with their counts are stored as key-value pairs 
+  in a Counter (a Dictionary-based implementation in Python)
+- A dictionary is used to store page response signatures (fingerprints) and their urls as key-value pairs respectively.
+  A page with the same text will have the same signature, and hence will be a duplicate. This is output in the logs.
+- Details of a parsed page are recorded and stored as a Document, which is a dictionary that holds values of
+  url, term-incidence, term-frequency and the doc-id (signature/fingerprint).
+
+
+
 
 
