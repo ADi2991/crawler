@@ -23,9 +23,9 @@ where crawly is the name of this crawler
 * On successful run, the spider will also generate tf-df.csv in this directory, which contains all the
   term and document frequencies of parsed documents.
 
-![picture] (page_as_doc.png)
-![picture] (page_as_doc2.png)
-![picture] (url_stats.png)
+![picture](page_as_doc.png)
+![picture](page_as_doc2.png)
+![picture](url_stats.png)
 
 
 
