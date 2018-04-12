@@ -8,6 +8,7 @@ from crawler.spiders.document import Document
 class ProjectSpider(scrapy.Spider):
     name = "crawly"
     handle_httpstatus_list = [404]
+    allowed_domains = ["s2.smu.edu"]
 
     custom_settings = {
         'DUPEFILTER_CLASS':'scrapy.dupefilters.BaseDupeFilter'
@@ -62,11 +63,11 @@ class ProjectSpider(scrapy.Spider):
                         # Adds title-contents
                         self.titles.extend(soup.title.contents)
                         # Adds links from anchor-tags in current page
-                        current_page_anchors = hf.get_links(soup)
+                        current_page_anchors = hf.get_links(soup, response)
                         self.anchored_urls.extend(current_page_anchors)
 
                         # Adds links of graphic objects (images)
-                        self.img_urls.extend(hf.get_img_links(response.url, soup))
+                        self.img_urls.extend(hf.get_img_links(response, soup))
 
                     # Add url to indexed urls
                     # self.indexed_urls.append(response.url)
@@ -98,7 +99,7 @@ class ProjectSpider(scrapy.Spider):
                     # Modify url frontier..
                     for url in current_page_anchors:
                         # ..add only the links that haven't been visited yet
-                        if url not in self.indexed_urls:
+                        if url not in self.indexed_urls and url not in self.url_frontier:
                             self.url_frontier.append(url)
                             # Add img links from anchor tags
                             if hf.urltype(url) in ['jpg', 'jpeg', 'png', 'gif']:
@@ -117,3 +118,5 @@ class ProjectSpider(scrapy.Spider):
                         if url not in self.indexed_urls:
                             print("Will now head to: %s\n" % url)
                             yield scrapy.Request(url=url, callback=self.parse)
+            # else:
+            #     print("\n URL %s already visited" % response.url)
