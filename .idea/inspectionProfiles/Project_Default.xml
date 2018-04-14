@@ -5,6 +5,7 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="crawler.spiders.page_processor.Document" />
+          <option value="scorer" />
         </list>
       </option>
     </inspection_tool>

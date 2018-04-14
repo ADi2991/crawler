@@ -25,6 +25,7 @@ class CrawlerPipeline(object):
         self.fill_zero_counts(spider, self.normalize(unified_word_count))
         doc_freq = self.get_docfreq(spider)
         self.export_tfdf(spider.documents, doc_freq)
+        self.export_title_preview(spider.documents)
 
 
     def get_unified_word_count(self, spider):
@@ -73,3 +74,17 @@ class CrawlerPipeline(object):
                 row.extend(tfs)
                 row.append(df)
                 writer.writerow(row)
+
+    def export_title_preview(self, documents):
+        with open('title_preview.csv', 'w') as csvfile:
+            writer = csv.writer(csvfile, delimiter=',')
+            column_names = ['Document', 'title', 'preview']
+            writer.writerow(column_names)
+
+            for i in range(len(documents)):
+                row = []
+                row.append("Document "+str(i+1))
+                row.append(documents[i]['title'])
+                row.append(documents[i]['preview'])
+                writer.writerow(row)
+

@@ -1,5 +1,6 @@
 import scrapy
 from bs4 import BeautifulSoup
+from nltk.tokenize import word_tokenize
 import crawler.spiders.helper_functions as hf
 import hashlib
 from crawler.spiders.document import Document
@@ -58,10 +59,14 @@ class ProjectSpider(scrapy.Spider):
                 else:
                     soup = BeautifulSoup(response.text, 'html5lib')
                     current_page_anchors = []
+                    title = ""
+                    preview = ""
 
                     if hf.urltype(response.url) != 'txt':
                         # Adds title-contents
-                        self.titles.extend(soup.title.contents)
+                        title = soup.title.string
+                        self.titles.append(title)
+
                         # Adds links from anchor-tags in current page
                         current_page_anchors = hf.get_links(soup, response)
                         self.anchored_urls.extend(current_page_anchors)
@@ -80,6 +85,7 @@ class ProjectSpider(scrapy.Spider):
                     # Hashing webpage for duplicate detection
                     self.indexed_page_signatures[page_signature] = response.url
 
+                    preview = " ".join(word_tokenize(soup.body.text)[:20])
                     # term-frequency and incidence
                     (tf, incidence) = hf.tf_and_incidence(soup.text)
                     # print("tf = ", tf)
@@ -91,6 +97,8 @@ class ProjectSpider(scrapy.Spider):
                     document['doc_id'] = page_signature
                     document['tf'] = tf
                     document['incidence'] = incidence
+                    document['preview'] = preview
+                    document['title'] = title
 
                     # print("Current page details:\n", document)
                     print("Page details recorded!")

@@ -6,3 +6,5 @@ class Document(scrapy.Item):
     doc_id = scrapy.Field()
     tf = scrapy.Field()
     incidence = scrapy.Field()
+    title = scrapy.Field()
+    preview = scrapy.Field()
