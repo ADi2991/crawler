@@ -23,6 +23,18 @@ def ntc_normalize(tf, df):
     vecs = vecs/sum_sq
     return vecs
 
+def ltc_normalize(tf, df):
+    vecs = tf.copy()
+    # log normalization
+    vecs = 1 + np.log(vecs[vecs!=0])
+    # df normalization
+    norm_doc_freq = np.log(len(doc_headers) / df)
+    # tf.df
+    vecs = vecs.multiply(norm_doc_freq, axis='rows')
+    # Cosine normalization:
+    sum_sq = np.sum(vecs**2, axis=0)
+    vecs = vecs/sum_sq
+    return vecs
 
 def nnc_normalize(tf, df):
     vecs = tf.copy()
@@ -34,10 +46,22 @@ def nnc_normalize(tf, df):
     vecs = vecs/sum_sq
     return vecs
 
+def lnc_normalize(tf, df):
+    vecs = tf.copy()
+    # log normalization
+    vecs = 1 + np.log(vecs[vecs != 0])
+    norm_doc_freq = df
+    # tf.df
+    vecs = vecs.multiply(norm_doc_freq, axis='rows')
+    # Cosine normalization:
+    sum_sq = np.sum(vecs**2, axis=0)
+    vecs = vecs/sum_sq
+    return vecs
+
 
 # normalize doc vecs
-norm_doc_vec = ntc_normalize(doc_tf, data['df'])
-
+#norm_doc_vec = ntc_normalize(doc_tf, data['df'])
+norm_doc_vec = lnc_normalize(doc_tf, data['df'])
 
 def get_stemmed_tokenized_query(query):
     stemmer = porter.PorterStemmer(mode='ORIGINAL_ALGORITHM')
@@ -76,7 +100,8 @@ def get_score(query):
     query_words = get_stemmed_tokenized_query(query)
     # normalize query
     query_tf = get_query_tf(query, data['word'])
-    norm_query_vec = nnc_normalize(query_tf, data['df'])
+    #norm_query_vec = nnc_normalize(query_tf, data['df'])
+    norm_query_vec = ltc_normalize(query_tf, data['df'])
 
     modif = get_similarity_scores(norm_doc_vec, norm_query_vec)
     titles = titles_previews['title'].copy()
