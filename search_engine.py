@@ -21,6 +21,7 @@ def get_top_results(query, n):
     document_nos = non_zero_scores.index
     details = scorer.titles_previews.copy()
     details.index = details['Document']
+    details.loc[document_nos, 'scores'] = non_zero_scores.values
     results = details.loc[document_nos][:n]
     return results.values
 
@@ -62,7 +63,7 @@ def get_alternate_queries(query_words, thesaurus):
 
 def print_results(results):
     for i in results:
-        print("%s\n%s...\nURL: %s\n" % (i[1], i[2], i[3]))
+        print("%s (score: %s)\n%s...\nURL: %s\n" % (i[1], i[4], i[2], i[3]))
 
 thesaurus = read_thesaurus_from_file()
 while True:
