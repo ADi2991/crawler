@@ -7,7 +7,7 @@ from collections import Counter
 data = pd.read_csv('tf-df.csv')
 titles_previews = pd.read_csv('title_preview.csv')
 doc_headers = [column for column in data.columns if 'Document' in column]
-titles_previews = titles_previews.fillna("")
+titles_previews = titles_previews.fillna("N/A")
 titles_previews['title'] = titles_previews['title'].apply(lambda word: word.lower())
 
 # normalize document
@@ -68,7 +68,7 @@ def get_similarity_scores(norm_docs, norm_query):
 # calculates the bonus score according
 def calculate_bonus_score(string, words):
     intersection = [word for word in words if word in string]
-    return 0.25 if len(intersection) > 0 else 0
+    return 0.25 * len(intersection)
 
 
 # returns query score with bonus (title)
