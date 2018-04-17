@@ -4,10 +4,12 @@ from nltk.tokenize import word_tokenize
 import nltk.stem.porter as porter
 from collections import Counter
 import re
+from nltk.corpus import stopwords
 
 base_url = 'https://s2.smu.edu/~fmoore/'
 supported_types = ['txt', 'html', 'htm', 'php']
 restricted_folder = '/dontgohere'
+eng_stopwords = stopwords.words('english')
 
 def get_links(soup, response):
     anchor_links = [anchor['href'] for anchor in soup.find_all('a')]
@@ -27,7 +29,8 @@ def get_img_links(response, soup):
 
 def tf_and_incidence(text):
     tokens = word_tokenize(text)
-
+    # filtering stopwords
+    tokens = [word for word in tokens if word not in eng_stopwords]
     # applying nltk's porter stemmer
     porter_stemmer = porter.PorterStemmer(mode='ORIGINAL_ALGORITHM')
     stemmed_tokens = list(map(porter_stemmer.stem, tokens))

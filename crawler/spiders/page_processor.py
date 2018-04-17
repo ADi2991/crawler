@@ -73,7 +73,9 @@ class ProjectSpider(scrapy.Spider):
 
                         # Adds links of graphic objects (images)
                         self.img_urls.extend(hf.get_img_links(response, soup))
-
+                    else:
+                        file = response.url.split("/")[-1]
+                        title = file[:-4]
                     # Add url to indexed urls
                     # self.indexed_urls.append(response.url)
 
