@@ -3,30 +3,30 @@ Document 1,Freeman Moore - SMU Spring 2018,"Spring 2018 Freeman L. Moore , PhD e
 Document 2,SMU CSE 5337/7337 Spring 2018 Schedule,SMU CSE 5337/7337 2018 Preliminary Schedule This page is maintained as the latest schedule of content and activities . Date,https://s2.smu.edu/~fmoore/schedule.htm
 Document 3,SMU CSE 5/7337 Spring 2018 Textfiles,Textfiles for clustering golf 1 golf 2 golf 3 golf 4 golf 5 basketball 1 basketball 2 basketball 3 basketball,https://s2.smu.edu/~fmoore/textfiles/index.html
 Document 4,"SMU CSE 5/7337 Spring 2018 text files""",additional text files to support query implementation part 1 part 2 part 3 part 4 part 5 hocuspocus 3 word,https://s2.smu.edu/~fmoore/misc/text/index.php
-Document 5,CSE 7337 Spring 2018 distance students exam 1 location,"CSE 7337 Distance student exam 1 location ( inclass vs proctor ) NumberPersonLocationRequest date 1Henk , Chrisproctor 2Henkel Lopez ,",https://s2.smu.edu/~fmoore/misc/exam1.html
-Document 6,CSE 5337/7337 User-Agent,This is the user-agent information received var x = `` User-agent header sent : `` + navigator.userAgent ; document.getElementById (,https://s2.smu.edu/~fmoore/misc/useragent.php
-Document 7,Levenshtein Distance demo,Levenshtein Distance calculator For example : FAST to CATS = 3 CATS to DOGS = 3 String 1 : String,https://s2.smu.edu/~fmoore/misc/levenshtein.html
-Document 8,Porter Stemmer Online,Javascript Porter Stemmer Online Find out more about the Porter Stemming algorithm at the official site . Example : Do,https://s2.smu.edu/~fmoore/misc/porter_stemmer_example.html
-Document 9,baseball5,"Terence Mann : Ray , people will come Ray . They 'll come to Iowa for reasons they ca n't",https://s2.smu.edu/~fmoore/textfiles/baseball5.txt
-Document 10,baseball4,The oddsmakers at BetDSI Sportsbook have Ohtani fever as much as all those baseball scouts and writers tripping over themselves,https://s2.smu.edu/~fmoore/textfiles/baseball4.txt
-Document 11,baseball3,"Season ticket sales for the Rangers are off after the team 's 78-84 record last season , according to a",https://s2.smu.edu/~fmoore/textfiles/baseball3.txt
-Document 12,baseball2,"It 's Opening Day , and for one day our team is going to win the whole bleeping thing .",https://s2.smu.edu/~fmoore/textfiles/baseball2.txt
-Document 13,baseball1,"The Texas Rangers have to be at their most presentable with Cole Hamels pitching and , if Thursday is the",https://s2.smu.edu/~fmoore/textfiles/baseball1.txt
-Document 14,basketball5,Basketball is a limited-contact sport played on a rectangular court . While most often played as a team sport with,https://s2.smu.edu/~fmoore/textfiles/basketball5.txt
-Document 15,building2,buildingthree buildingtwo buildingone,https://s2.smu.edu/~fmoore/misc/text/building2.txt
-Document 16,building1,buildingone buildingtwo buildingthree,https://s2.smu.edu/~fmoore/misc/text/building1.txt
-Document 17,This is the magic file,Magic shows up here and in the title . brown beige tan auburn,https://s2.smu.edu/~fmoore/misc/text/magictext.html
-Document 18,Mockingbird part 5,Mockingbird part 5 Atticus does not want Jem and Scout to be present at Tom Robinson 's trial . No,https://s2.smu.edu/~fmoore/misc/text/mockingbird5.html
-Document 19,Mockingbird part 4,Mockingbird part 4 The story takes place during three years ( 1933–35 ) of the Great Depression in the fictional,https://s2.smu.edu/~fmoore/misc/text/mockingbird4.html
-Document 20,Mockingbird part 3,"Mockingbird part 3 Suddenly , Scout and Jem have to tolerate a barrage of racial slurs and insults because of",https://s2.smu.edu/~fmoore/misc/text/mockingbird3.html
-Document 21,Mockingbird part 2,"Mockingbird part 2 The only neighbor who puzzles them is the mysterious Arthur Radley , nicknamed Boo , who never",https://s2.smu.edu/~fmoore/misc/text/mockingbird2.html
-Document 22,Mockingbird novel part 1,Mockingbird part 1 To Kill a Mockingbird is primarily a novel about growing up under extraordinary circumstances in the 1930s,https://s2.smu.edu/~fmoore/misc/text/mockingbird1.html
-Document 23,basketball4,The golden state warriors basketball team had something to prove all right . They plan to stay in the playoffs,https://s2.smu.edu/~fmoore/textfiles/basketball4.txt
-Document 24,basketball3,"After 24-win season , Mavs coach careful not to promise too much for next season 's basketball team . Our",https://s2.smu.edu/~fmoore/textfiles/basketball3.txt
-Document 25,basketball2,"UTA fired a good man , and now they are looking for the Ark of the Covenant without Indiana Jones",https://s2.smu.edu/~fmoore/textfiles/basketball2.txt
-Document 26,basketball1,"Under normal circumstances , the news that Dirk Nowitzki is done for the year would be devastating . But Thursday",https://s2.smu.edu/~fmoore/textfiles/basketball1.txt
-Document 27,golf5,The resurgent Poulter will have that chance Sunday after shooting a 4 under par 67 to take a one shot,https://s2.smu.edu/~fmoore/textfiles/golf5.txt
-Document 28,golf4,"Kelly Kraft got a birdie , just not the one he wanted . Kraft 's ball hit a bird in",https://s2.smu.edu/~fmoore/textfiles/golf4.txt
-Document 29,golf3,Bryson DeChambeau shot a career best 7 under par Friday to take the lead into the weekend at the RBC,https://s2.smu.edu/~fmoore/textfiles/golf3.txt
-Document 30,golf2,Jay Haas nearly shot his age Friday to take the lead into a 36 hole Saturday finish in the Professional,https://s2.smu.edu/~fmoore/textfiles/golf2.txt
-Document 31,golf1,The champagne pop echoes you hear are from CBS and PGA Tour officials celebrating because not only is it Masters,https://s2.smu.edu/~fmoore/textfiles/golf1.txt
+Document 5,baseball5,"Terence Mann : Ray , people will come Ray . They 'll come to Iowa for reasons they ca n't",https://s2.smu.edu/~fmoore/textfiles/baseball5.txt
+Document 6,building2,buildingthree buildingtwo buildingone,https://s2.smu.edu/~fmoore/misc/text/building2.txt
+Document 7,building1,buildingone buildingtwo buildingthree,https://s2.smu.edu/~fmoore/misc/text/building1.txt
+Document 8,This is the magic file,Magic shows up here and in the title . brown beige tan auburn,https://s2.smu.edu/~fmoore/misc/text/magictext.html
+Document 9,Mockingbird part 5,Mockingbird part 5 Atticus does not want Jem and Scout to be present at Tom Robinson 's trial . No,https://s2.smu.edu/~fmoore/misc/text/mockingbird5.html
+Document 10,Mockingbird part 4,Mockingbird part 4 The story takes place during three years ( 1933–35 ) of the Great Depression in the fictional,https://s2.smu.edu/~fmoore/misc/text/mockingbird4.html
+Document 11,Mockingbird part 3,"Mockingbird part 3 Suddenly , Scout and Jem have to tolerate a barrage of racial slurs and insults because of",https://s2.smu.edu/~fmoore/misc/text/mockingbird3.html
+Document 12,Mockingbird part 2,"Mockingbird part 2 The only neighbor who puzzles them is the mysterious Arthur Radley , nicknamed Boo , who never",https://s2.smu.edu/~fmoore/misc/text/mockingbird2.html
+Document 13,basketball1,"Under normal circumstances , the news that Dirk Nowitzki is done for the year would be devastating . But Thursday",https://s2.smu.edu/~fmoore/textfiles/basketball1.txt
+Document 14,Mockingbird novel part 1,Mockingbird part 1 To Kill a Mockingbird is primarily a novel about growing up under extraordinary circumstances in the 1930s,https://s2.smu.edu/~fmoore/misc/text/mockingbird1.html
+Document 15,baseball4,The oddsmakers at BetDSI Sportsbook have Ohtani fever as much as all those baseball scouts and writers tripping over themselves,https://s2.smu.edu/~fmoore/textfiles/baseball4.txt
+Document 16,baseball3,"Season ticket sales for the Rangers are off after the team 's 78-84 record last season , according to a",https://s2.smu.edu/~fmoore/textfiles/baseball3.txt
+Document 17,baseball2,"It 's Opening Day , and for one day our team is going to win the whole bleeping thing .",https://s2.smu.edu/~fmoore/textfiles/baseball2.txt
+Document 18,basketball5,Basketball is a limited-contact sport played on a rectangular court . While most often played as a team sport with,https://s2.smu.edu/~fmoore/textfiles/basketball5.txt
+Document 19,basketball4,The golden state warriors basketball team had something to prove all right . They plan to stay in the playoffs,https://s2.smu.edu/~fmoore/textfiles/basketball4.txt
+Document 20,golf3,Bryson DeChambeau shot a career best 7 under par Friday to take the lead into the weekend at the RBC,https://s2.smu.edu/~fmoore/textfiles/golf3.txt
+Document 21,baseball1,"The Texas Rangers have to be at their most presentable with Cole Hamels pitching and , if Thursday is the",https://s2.smu.edu/~fmoore/textfiles/baseball1.txt
+Document 22,basketball3,"After 24-win season , Mavs coach careful not to promise too much for next season 's basketball team . Our",https://s2.smu.edu/~fmoore/textfiles/basketball3.txt
+Document 23,basketball2,"UTA fired a good man , and now they are looking for the Ark of the Covenant without Indiana Jones",https://s2.smu.edu/~fmoore/textfiles/basketball2.txt
+Document 24,golf5,The resurgent Poulter will have that chance Sunday after shooting a 4 under par 67 to take a one shot,https://s2.smu.edu/~fmoore/textfiles/golf5.txt
+Document 25,golf4,"Kelly Kraft got a birdie , just not the one he wanted . Kraft 's ball hit a bird in",https://s2.smu.edu/~fmoore/textfiles/golf4.txt
+Document 26,golf2,Jay Haas nearly shot his age Friday to take the lead into a 36 hole Saturday finish in the Professional,https://s2.smu.edu/~fmoore/textfiles/golf2.txt
+Document 27,golf1,The champagne pop echoes you hear are from CBS and PGA Tour officials celebrating because not only is it Masters,https://s2.smu.edu/~fmoore/textfiles/golf1.txt
+Document 28,CSE 7337 Spring 2018 distance students exam 1 location,"CSE 7337 Distance student exam 1 location ( inclass vs proctor ) NumberPersonLocationRequest date 1Henk , Chrisproctor 2Henkel Lopez ,",https://s2.smu.edu/~fmoore/misc/exam1.html
+Document 29,CSE 5337/7337 User-Agent,This is the user-agent information received var x = `` User-agent header sent : `` + navigator.userAgent ; document.getElementById (,https://s2.smu.edu/~fmoore/misc/useragent.php
+Document 30,Levenshtein Distance demo,Levenshtein Distance calculator For example : FAST to CATS = 3 CATS to DOGS = 3 String 1 : String,https://s2.smu.edu/~fmoore/misc/levenshtein.html
+Document 31,Porter Stemmer Online,Javascript Porter Stemmer Online Find out more about the Porter Stemming algorithm at the official site . Example : Do,https://s2.smu.edu/~fmoore/misc/porter_stemmer_example.html

@@ -9,10 +9,26 @@ clusters = knn.cluster(scorer.doc_headers, scorer.data[scorer.doc_headers])
 cluster_hierarchy = knn.cluster_hierarchy().values()
 leaders_idx = [cluster['leader'] for cluster in cluster_hierarchy]
 leaders = [scorer.doc_headers[idx] for idx in leaders_idx]
-followers = [cluster['followers'] for cluster in cluster_hierarchy]
+followers_idx = [cluster['followers'] for cluster in cluster_hierarchy]
 
 
-print("Cluster hierarchy %s" % cluster_hierarchy)
+# print("Cluster hierarchy %s" % cluster_hierarchy)
+
+def make_legible():
+    legible_hier = dict()
+    def get_title_by_idx(idx):
+        header = scorer.doc_headers[idx]
+        table = scorer.titles_previews
+        table = table[table['Document'] == header]
+        return table['title']
+    for cluster in range(len(leaders_idx)):
+        leader = get_title_by_idx(leaders_idx[cluster])
+        followers = [get_title_by_idx(follower_id) for follower_id in followers_idx[cluster]]
+        legible_hier[cluster] = dict()
+        legible_hier[cluster]['leader'] = str(leader)
+        legible_hier[cluster]['follower'] = [str(follower) for follower in followers]
+    return legible_hier
+
 
 def get_top_results(query, n):
     scores = scorer.get_score(query)
@@ -62,16 +78,20 @@ def get_alternate_queries(query_words, thesaurus):
         yield query
 
 def print_results(results):
+    rank = 1
     for i in results:
-        print("%s (score: %s)\n%s...\nURL: %s\n" % (i[1], i[4], i[2], i[3]))
+        print("%s: %s (score: %s)\n%s...\nURL: %s\n" % (rank, i[1], i[4], i[2], i[3]))
+        rank += 1
 
 thesaurus = read_thesaurus_from_file()
+print("Cluster hierarchy:\n", make_legible())
 while True:
     print("\n")
     print("--------------------")
     query = input("Enter query: ")
     query = query.lower()
     if query == "quit":
+        print("Goodbye!")
         break
     else:
         query_words = word_tokenize(query)
@@ -92,7 +112,7 @@ while True:
             else:
                 print("Number of results less than 3, using thesaurus expansion..")
                 pass
-        if len(results) <= 3:
+        if len(results) < 3:
             if len(results) == 0:
                 print("Thesaurus expansion failed, no results found")
             else:
