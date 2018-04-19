@@ -109,6 +109,46 @@ def get_score(query):
     titles = titles.transform(lambda string: calculate_bonus_score(string, query_words))
     return (titles+modif).sort_values(ascending=False)
 
+def get_normalized_query(query):
+    query_tf = get_query_tf(query, data['word'])
+    return nnc_normalize(query_tf, data['df'])
+
+def get_nearest_cluster(query, cluster_hierarchy):
+    leaders_idx = [cluster_hierarchy[cluster]['leader'] for cluster in cluster_hierarchy]
+    ldr_headers = [doc_headers[ldr] for ldr in leaders_idx]
+    vecs = norm_doc_vec.loc[:, ldr_headers].copy()
+    query_words = get_stemmed_tokenized_query(query)
+    norm_query_vec = get_normalized_query(query)
+
+    modif = get_similarity_scores(vecs, norm_query_vec)
+    tp = titles_previews.query("Document in " + str(ldr_headers))
+    titles = tp['title'].copy()
+    titles.index = modif.index
+    titles = titles.transform(lambda string: calculate_bonus_score(string, query_words))
+    total_scores = (titles + modif)
+    doc = total_scores.idxmax()
+    doc_id = doc_headers.index(doc)
+    cluster_id = leaders_idx.index(doc_id)
+    leader_score = total_scores[doc]
+    return cluster_id, leader_score
+
+def unpack_cluster(cluster_hier, cluster_id):
+    leader = cluster_hier[cluster_id]['leader']
+    followers = cluster_hier[cluster_id]['followers']
+
+    docs = followers.copy()
+    docs.insert(0, leader)
+    return titles_previews.loc[docs].values
+
+def print_cluster_details(details_subset, ldr_score, limit):
+    rank = 1
+    for i in details_subset:
+        if rank > limit:
+            break
+        else:
+            print("%s: %s (leader score: %s)\n%s...\nURL: %s\n" % (rank, i[1], ldr_score, i[2], i[3]))
+            rank += 1
+
 
 class KNN:
     def __init__(self, N):

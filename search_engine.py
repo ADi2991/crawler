@@ -93,7 +93,8 @@ def print_results(results):
 
 thesaurus = read_thesaurus_from_file()
 tp = scorer.titles_previews.copy()
-print("Cluster hierarchy:\n", make_legible(cluster_hierarchy, scorer.doc_headers, tp))
+# print("Cluster hierarchy:\n", )
+make_legible(cluster_hierarchy, scorer.doc_headers, tp)
 while True:
     print("\n")
     print("--------------------")
@@ -105,6 +106,7 @@ while True:
     else:
         query_words = word_tokenize(query)
         query_no_stopwords = [word for word in query_words if word not in eng_stopwords]
+        ldr_score = 0
         if len(query_no_stopwords) > 0:
             queries = get_alternate_queries(query_no_stopwords, thesaurus)
         else:
@@ -113,10 +115,14 @@ while True:
         for query in queries:
             query_concat = str(query)
             print('Using query "%s"' % query_concat)
-            results = get_top_results(query_concat, 6)
+            # results = get_top_results(query_concat, 6)
+            cluster_id, ldr_score = scorer.get_nearest_cluster(query, cluster_hierarchy)
+            results = scorer.unpack_cluster(cluster_hierarchy, cluster_id)
             if len(results) >= 3:
-                print("Top %s results:" % (len(results)))
-                print_results(results)
+                # print("Top %s results:" % (len(results)))
+                # print_results(results)
+                print("Top results:\n")
+                scorer.print_cluster_details(results, ldr_score, 6)
                 break
             else:
                 print("Number of results less than 3, using thesaurus expansion..")
@@ -126,6 +132,7 @@ while True:
                 print("Thesaurus expansion failed, no results found")
             else:
                 print("Could only get the following results:")
-                print_results(results)
+                # print_results(results)
+                scorer.print_cluster_details(results, ldr_score, 6)
 
 
