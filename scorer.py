@@ -60,7 +60,7 @@ def lnc_normalize(tf, df):
 
 
 # normalize doc vecs
-#norm_doc_vec = ntc_normalize(doc_tf, data['df'])
+# norm_doc_vec = ntc_normalize(doc_tf, data['df'])
 norm_doc_vec = nnc_normalize(doc_tf, data['df'])
 
 def get_stemmed_tokenized_query(query):
@@ -101,7 +101,6 @@ def get_score(query):
     query_words = get_stemmed_tokenized_query(query)
     # normalize query
     query_tf = get_query_tf(query, data['word'])
-    #norm_query_vec = nnc_normalize(query_tf, data['df'])
     norm_query_vec = nnc_normalize(query_tf, data['df'])
 
     modif = get_similarity_scores(norm_doc_vec, norm_query_vec)
@@ -126,10 +125,11 @@ class KNN:
         self.vecs = vecs
         self.clusters = self.get_empty_clusters(self.N)
 
-        indices = np.arange(len(doc_headers))
-        np.random.shuffle(indices)
+        # indices = np.arange(len(doc_headers))
+        # np.random.shuffle(indices)
+        doc_count = len(doc_headers)
+        indices = np.arange(start=0, stop=doc_count, step=doc_count / self.N, dtype=np.int)
 
-        #  randomly assign clusters
         for i in range(self.N):
             self.clusters[i].append(indices[i])
 
@@ -138,7 +138,8 @@ class KNN:
         cluster_centroids = []
         for i in clusters:
             cluster_vectors = [self.vecs[self.doc_headers[doc_nos]] for doc_nos in clusters[i]]
-            centroid = np.sum(cluster_vectors, axis=0) / len(clusters[i])
+            # centroid = np.sum(cluster_vectors, axis=0)/len(clusters[i])
+            centroid = np.mean(cluster_vectors, axis=0)
             cluster_centroids.append(centroid)
         return cluster_centroids
 
@@ -149,7 +150,7 @@ class KNN:
             for centroid in range(len(cluster_centroids)):
                 vec_difference = self.vecs[doc_headers[vec]] - cluster_centroids[centroid]
                 magnitude = np.sum(vec_difference ** 2)
-                dist_matrix[vec][centroid] = magnitude
+                dist_matrix[vec][centroid] = np.sqrt(magnitude)
         return dist_matrix
 
     def get_clusters(self, dist_matrix):
@@ -174,14 +175,16 @@ class KNN:
 
     def cluster(self, doc_headers, vecs):
         self.initialize_state(doc_headers, vecs)
-        calculated_clusters = self.clusters
+        self.clusters = self.iteration(self.clusters)
         converged = False
 
-        while converged == False:
-            self.clusters = calculated_clusters
-            cluster_centroids = self.get_centroids(calculated_clusters)
-            self.dist_matrix = self.get_absolute_distances(doc_headers, cluster_centroids)
-            calculated_clusters = self.get_clusters(self.dist_matrix)
+        while (converged == False):
+            calculated_clusters = self.iteration(self.clusters)
             converged = self.clusters == calculated_clusters
-        return calculated_clusters
+            self.clusters = calculated_clusters
+        return self.clusters.copy()
 
+    def iteration(self, clusters):
+        cluster_centroids = self.get_centroids(clusters)
+        self.dist_matrix = self.get_absolute_distances(self.doc_headers, cluster_centroids)
+        return self.get_clusters(self.dist_matrix)

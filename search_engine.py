@@ -5,29 +5,37 @@ from nltk.corpus import stopwords
 
 eng_stopwords = stopwords.words('english')
 knn = scorer.KNN(5)
-clusters = knn.cluster(scorer.doc_headers, scorer.data[scorer.doc_headers])
-cluster_hierarchy = knn.cluster_hierarchy().values()
-leaders_idx = [cluster['leader'] for cluster in cluster_hierarchy]
-leaders = [scorer.doc_headers[idx] for idx in leaders_idx]
-followers_idx = [cluster['followers'] for cluster in cluster_hierarchy]
+clusters = knn.cluster(scorer.doc_headers, scorer.norm_doc_vec)
+cluster_hierarchy = knn.cluster_hierarchy()
 
 
 # print("Cluster hierarchy %s" % cluster_hierarchy)
 
-def make_legible():
-    legible_hier = dict()
-    def get_title_by_idx(idx):
-        header = scorer.doc_headers[idx]
-        table = scorer.titles_previews
-        table = table[table['Document'] == header]
-        return table['title']
-    for cluster in range(len(leaders_idx)):
-        leader = get_title_by_idx(leaders_idx[cluster])
-        followers = [get_title_by_idx(follower_id) for follower_id in followers_idx[cluster]]
-        legible_hier[cluster] = dict()
-        legible_hier[cluster]['leader'] = str(leader)
-        legible_hier[cluster]['follower'] = [str(follower) for follower in followers]
-    return legible_hier
+def make_legible(cluster_hierarchy, doc_headers, tp): #tp = titles_previews dataframe
+    leaders_idx = [cluster_hierarchy[cluster]['leader'] for cluster in cluster_hierarchy]
+    leaders = [doc_headers[idx] for idx in leaders_idx]
+    followers_idx = [cluster_hierarchy[cluster]['followers'] for cluster in cluster_hierarchy]
+
+    def make_legible():
+        legible_hier = dict()
+        def get_title_by_idx(idx):
+            header = doc_headers[idx]
+            table = tp
+            table = table[table['Document'] == header]
+            return table['title'].values[0]
+        for cluster in range(len(leaders_idx)):
+            leader = get_title_by_idx(leaders_idx[cluster])
+            followers = [get_title_by_idx(follower_id) for follower_id in followers_idx[cluster]]
+            legible_hier[cluster] = dict()
+            legible_hier[cluster]['leader'] = str(leader)
+            legible_hier[cluster]['follower'] = [str(follower) for follower in followers]
+        return legible_hier
+
+    legible = make_legible()
+    for cluster in legible:
+        ldr = legible[cluster]['leader']
+        flwr = legible[cluster]['follower']
+        print("cluster %d\nleader: %s\nfollowers: %s\n" % (cluster, ldr, flwr))
 
 
 def get_top_results(query, n):
@@ -84,7 +92,8 @@ def print_results(results):
         rank += 1
 
 thesaurus = read_thesaurus_from_file()
-print("Cluster hierarchy:\n", make_legible())
+tp = scorer.titles_previews.copy()
+print("Cluster hierarchy:\n", make_legible(cluster_hierarchy, scorer.doc_headers, tp))
 while True:
     print("\n")
     print("--------------------")
