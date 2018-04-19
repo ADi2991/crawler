@@ -91,6 +91,12 @@ def print_results(results):
         print("%s: %s (score: %s)\n%s...\nURL: %s\n" % (rank, i[1], i[4], i[2], i[3]))
         rank += 1
 
+def display_results(results, mode, ldr_score=0):
+    if mode in ['a', 'A']:
+        print_results(results)
+    else:
+        scorer.print_cluster_details(results, ldr_score, 6)
+
 thesaurus = read_thesaurus_from_file()
 tp = scorer.titles_previews.copy()
 # print("Cluster hierarchy:\n", )
@@ -107,6 +113,7 @@ while True:
         query_words = word_tokenize(query)
         query_no_stopwords = [word for word in query_words if word not in eng_stopwords]
         ldr_score = 0
+        mode = input("Enter search-mode \ni.e. All documents(a) or cluster-based search(c)?:")
         if len(query_no_stopwords) > 0:
             queries = get_alternate_queries(query_no_stopwords, thesaurus)
         else:
@@ -115,14 +122,18 @@ while True:
         for query in queries:
             query_concat = str(query)
             print('Using query "%s"' % query_concat)
-            # results = get_top_results(query_concat, 6)
-            cluster_id, ldr_score = scorer.get_nearest_cluster(query, cluster_hierarchy)
-            results = scorer.unpack_cluster(cluster_hierarchy, cluster_id)
+            if mode in ['a', 'A']:
+                print("Searching all documents...\n")
+                results = get_top_results(query_concat, 6)
+            else:
+                print("Searching by cluster...\n")
+                cluster_id, ldr_score = scorer.get_nearest_cluster(query, cluster_hierarchy)
+                results = scorer.unpack_cluster(cluster_hierarchy, cluster_id)
             if len(results) >= 3:
                 # print("Top %s results:" % (len(results)))
                 # print_results(results)
                 print("Top results:\n")
-                scorer.print_cluster_details(results, ldr_score, 6)
+                display_results(results, mode, ldr_score)
                 break
             else:
                 print("Number of results less than 3, using thesaurus expansion..")
@@ -133,6 +144,6 @@ while True:
             else:
                 print("Could only get the following results:")
                 # print_results(results)
-                scorer.print_cluster_details(results, ldr_score, 6)
+                display_results(results, mode, ldr_score)
 
 
