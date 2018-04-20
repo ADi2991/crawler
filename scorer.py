@@ -168,8 +168,9 @@ class KNN:
         # indices = np.arange(len(doc_headers))
         # np.random.shuffle(indices)
         doc_count = len(doc_headers)
-        indices = np.arange(start=0, stop=doc_count, step=doc_count / self.N, dtype=np.int)
-
+        # indices = np.arange(start=0, stop=doc_count, step=doc_count/self.N, dtype=np.int)
+        # indices = [0, 7, 15, 22, 30]
+        indices = np.arange(0, 35, 6)
         for i in range(self.N):
             self.clusters[i].append(indices[i])
 
@@ -228,3 +229,21 @@ class KNN:
         cluster_centroids = self.get_centroids(clusters)
         self.dist_matrix = self.get_absolute_distances(self.doc_headers, cluster_centroids)
         return self.get_clusters(self.dist_matrix)
+
+    def calculate_cluster_scores(self, cluster_hierarchy):
+        cluster_scores = dict()
+        for cluster in cluster_hierarchy:
+            cluster_scores[cluster] = list()
+            followers_idx = cluster_hierarchy[cluster]['followers']
+            leader_idx = cluster_hierarchy[cluster]['leader']
+
+            def get_doc_by_id(id):
+                header = doc_headers[id]
+                return norm_doc_vec[header].copy()
+
+            for i in range(len(followers_idx)):
+                vec_sub = get_doc_by_id(leader_idx) - get_doc_by_id(followers_idx[i])
+                score = np.sqrt(np.sum(vec_sub ** 2))
+                cluster_scores[cluster].append(score)
+        self.cluster_scores = cluster_scores
+
