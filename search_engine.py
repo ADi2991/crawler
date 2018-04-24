@@ -145,8 +145,7 @@ while True:
     else:
         query_words = word_tokenize(query)
         query_no_stopwords = [word for word in query_words if word not in eng_stopwords]
-        ldr_score = 0
-        mode = input("Enter search-mode \ni.e. All documents(a) or cluster-based search(c)?:")
+
         if len(query_no_stopwords) > 0:
             queries = get_alternate_queries(query_no_stopwords, thesaurus)
         else:
@@ -155,29 +154,18 @@ while True:
         for query in queries:
             query_concat = str(query)
             print('Using query "%s"' % query_concat)
-            if mode in ['a', 'A']:
-                print("Searching all documents...\n")
-                results = get_top_results(query_concat, 6)
-            else:
-                print("Searching by cluster...\n")
-                cluster_id, ldr_score = scorer.get_nearest_cluster(query, cluster_hierarchy)
-                results = scorer.unpack_cluster(cluster_hierarchy, cluster_id)
-            if len(results) >= 3 and ldr_score > 0:
-                # print("Top %s results:" % (len(results)))
-                # print_results(results
-                # )
-                print("Top results:\n")
-                display_results(results, mode, ldr_score)
+            print("Searching all documents...\n")
+            results = get_top_results(query_concat, 6)
+            if len(results) >= 3:
+                print("Top %s results:" % (len(results)))
+                print_results(results)
                 break
             else:
                 print("Number of results less than 3, using thesaurus expansion..")
                 pass
-        if len(results) < 3 or ldr_score == 0:
+        if len(results) < 3:
             if len(results) == 0:
                 print("Thesaurus expansion failed, no results found")
             else:
                 print("Could only get the following results:")
-                # print_results(results)
-                display_results(results, mode, ldr_score)
-
-
+                print_results(results)
