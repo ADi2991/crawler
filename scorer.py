@@ -171,6 +171,7 @@ class KNN:
         # indices = np.arange(start=0, stop=doc_count, step=doc_count/self.N, dtype=np.int)
         # indices = [0, 7, 15, 22, 30]
         indices = np.arange(0, 35, 6)
+
         for i in range(self.N):
             self.clusters[i].append(indices[i])
 
