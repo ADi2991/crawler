@@ -53,6 +53,8 @@ where crawly is the name of this crawler
 
 - The search engine displays all the instructions required. In order to quit, type in 'quit' when
   prompted for a query.
+  
+  
 
 
 

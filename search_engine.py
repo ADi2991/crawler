@@ -146,26 +146,25 @@ while True:
         query_words = word_tokenize(query)
         query_no_stopwords = [word for word in query_words if word not in eng_stopwords]
 
-        if len(query_no_stopwords) > 0:
-            queries = get_alternate_queries(query_no_stopwords, thesaurus)
+        if len(query_no_stopwords) == 0:
+            print("Query has only stopwords..please enter a different query")
         else:
-            print("Query has only stopwords..using query as it is")
             queries = get_alternate_queries(query_words, thesaurus)
-        for query in queries:
-            query_concat = str(query)
-            print('Using query "%s"' % query_concat)
-            print("Searching all documents...\n")
-            results = get_top_results(query_concat, 6)
-            if len(results) >= 3:
-                print("Top %s results:" % (len(results)))
-                print_results(results)
-                break
-            else:
-                print("Number of results less than 3, using thesaurus expansion..")
-                pass
-        if len(results) < 3:
-            if len(results) == 0:
-                print("Thesaurus expansion failed, no results found")
-            else:
-                print("Could only get the following results:")
-                print_results(results)
+            for query in queries:
+                query_concat = str(query)
+                print('Using query "%s"' % query_concat)
+                print("Searching all documents...\n")
+                results = get_top_results(query_concat, 6)
+                if len(results) >= 3:
+                    print("Top %s results:" % (len(results)))
+                    print_results(results)
+                    break
+                else:
+                    print("Number of results less than 3, using thesaurus expansion..")
+                    pass
+            if len(results) < 3:
+                if len(results) == 0:
+                    print("Thesaurus expansion failed, no results found")
+                else:
+                    print("Could only get the following results:")
+                    print_results(results)
